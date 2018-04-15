@@ -37,34 +37,34 @@ public class Example extends Application {
         root = new Pane();
         root.setPrefSize(800, 600);
         stage.setScene(new Scene(root));
+        System.out.println("tworzy scene");
         
-
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long w) {
+            		System.out.println("tworzy obiekt retange JESTEM W HANDLE");
                 Rectangle rect = new Rectangle(40, 40, Color.RED);
                 rect.setTranslateY(40); // ustawia po y 
-
                 root.getChildren().add(rect);
+                cars.add(rect);
+                
                 for (Node car : cars) {
+                	System.out.println("jestem w forze ");
                     car.setTranslateX(car.getTranslateX() +  100); // poruszanie sie po x
                 }
-                    cars.add(rect);
-               System.out.println(cars.size());
+                
+               
                try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         };
         timer.start();
 
-
-
-
-
+        System.out.println("opuszczam timer");
         stage.show();
     }
 
