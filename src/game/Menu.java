@@ -7,8 +7,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -25,37 +28,55 @@ public class Menu extends Application {
 		root.setPrefSize(200, 200);
 		root.setSpacing(20);
 		root.setPadding(new Insets(10));
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(root, Color.BLACK));
 		primaryStage.centerOnScreen();
 		primaryStage.setResizable(false);
 		primaryStage.initStyle(StageStyle.UTILITY);
-		primaryStage.show();
 		primaryStage.setTitle("MyGame");
+		primaryStage.show();
+
 
 		
 		TextField name = new TextField();
+		name.setText("NoName");
 		Button score = new Button("Wyniki");
 		Button play = new Button("Graj");
-		root.getChildren().add(name);
-		root.getChildren().add(play);
-		root.getChildren().add(score);
-		
+		root.getChildren().addAll(name,play, score);
+
 		play.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		GameFX playStart = new GameFX();
+
 			@Override
 			public void handle(MouseEvent event) {
-
+				GameFX playStart = new GameFX();
 				playStart.start(new Stage());
 				playStart.setName(name.getText());
 				primaryStage.close();
 			}
 		});
 		
+		name.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode().equals(KeyCode.ENTER)){
+					GameFX playStart = new GameFX();
+					playStart.start(new Stage());
+					playStart.setName(name.getText());
+					primaryStage.close();
+				}
+			}
+		});
+		
 		score.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent event) {
-			System.out.println("oknow w budowie");
+			VievScores sv = new VievScores();
+			try {
+				sv.start(new Stage());
+			} catch (Exception e) {
 
+				e.printStackTrace();
+			}
 		}
 	});
 		
